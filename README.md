@@ -1,0 +1,2 @@
+# Functor
+Mappable objects
