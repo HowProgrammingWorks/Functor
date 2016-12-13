@@ -59,3 +59,6 @@ api.fp.path(config)('server.ssl.key.filename')(
     api.fp.maybe(data)(console.log);
   })
 );
+
+
+api.fp.path(config).set('server.ssl.key.filename')();
