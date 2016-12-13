@@ -1,3 +1,5 @@
+'use strict';
+
 function Maybe(x) {
   this.x = x;
 }
@@ -8,16 +10,13 @@ Maybe.prototype.map = function(fn) {
   } else {
     return new Maybe(null);
   }
-}
+};
 
 Maybe.prototype.ap = function(maybe) {
-  if (maybe) {
-    return maybe.map(this.x);
-  } else {
-    return new Maybe(null);
-  }
-}
+  return maybe.map(this.x);
+};
 
 let a = new Maybe(5);
 let b = new Maybe(x => x * 2);
 let c = b.ap(a).map(console.log);
+console.log(c);

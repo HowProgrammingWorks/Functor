@@ -20,5 +20,3 @@ main = do
       b = Just $ (* 2) . (+ 5) . (^ 2)
       c = b <*> a
   print c
-
-
