@@ -1,20 +1,29 @@
 'use strict';
 
-function Maybe(x) {
-  let fn = function(fn) {
-    if (x && fn) {
-      return Maybe(fn(x));
-    } else {
-      return Maybe(null);
-    }
-  }
+function maybe(x) {
+  let map = fn => (x && fn) ? fn(x) : null;
 
-  fn.ap = maybe => maybe.map(x);
+  map.ap = map2 => (
+    maybe(
+      map(
+        mbValue => (
+          maybe(map2)(
+            mbFunction => mbFunction(mbValue)
+          )
+        )
+      )
+    )
+  );
 
-  return fn;
+  return map;
 }
 
-Maybe(5)(x => x * 2)(console.log);
-Maybe(null)(x => x * 2)(console.log);
+maybe(5).ap(x => ++x)(console.log);
+maybe(5).ap(x => x * 2).ap(x => ++x)(console.log);
 
-Maybe(x => x * 2).ap(Maybe(5))(console.log);
+/*
+let a = maybe(7);
+let f1 = maybe(x => x * 2);
+let f2 = maybe(x => ++x);
+a.ap(f1).ap(f2)(console.log);
+*/

@@ -1,19 +1,21 @@
 'use strict';
 
-function Path(data) {
-  return path => (
-    Maybe(path)(path => (
+global.api = {};
+
+api.fp = {};
+
+api.fp.path = data => (
+  path => (
+    api.fp.maybe(path)(path => (
       path.split('.').reduce(
         (prev, key) => (prev[key] || {}),
         (data || {})
       )
     ))
-  );
-}
+  )
+);
 
-function Maybe(x) {
-  return fn => (x && fn) ? Maybe(fn(x)) : Maybe(null);
-}
+api.fp.maybe = x => fn => api.fp.maybe(x && fn ? fn(x) : null);
 
 // Usage example:
 
@@ -52,8 +54,8 @@ if (
 
 // Functional style:
 
-Path(config)('server.ssl.key.filename')(
+api.fp.path(config)('server.ssl.key.filename')(
   file => fs.readFile(file, (err, data) => {
-    Maybe(data)(console.log);
+    api.fp.maybe(data)(console.log);
   })
 );
