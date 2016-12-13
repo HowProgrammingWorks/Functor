@@ -16,7 +16,7 @@ instance Applicative Maybe where
   Nothing  <*> _ = Nothing
 
 main = do
-  let a = Just 5
-      b = Just $ (* 2) . (+ 5) . (^ 2)
-      c = b <*> a
-  print c
+  print $ (*) <$> Nothing <*> Nothing
+  print $ (*) <$> Nothing <*> Just 2
+  print $ (*) <$> Just 3  <*> Nothing
+  print $ (*) <$> Just 3  <*> Just 2
