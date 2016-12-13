@@ -5,18 +5,16 @@ function Maybe(x) {
 }
 
 Maybe.prototype.map = function(fn) {
-  if (this.x && fn) {
-    return new Maybe(fn(this.x));
-  } else {
-    return new Maybe(null);
-  }
+  return (this.x && fn) ? fn(this.x) : null;
 };
 
 Maybe.prototype.ap = function(maybe) {
-  return maybe.map(this.x);
+  return new Maybe(this.map(mbValue => (maybe.map(
+    mbFunction => mbFunction(mbValue)
+  ))));
 };
 
 let a = new Maybe(5);
-let b = new Maybe(x => x * 2);
-let c = b.ap(a).map(console.log);
-console.log(c);
+let f1 = new Maybe(x => x * 2);
+let f2 = new Maybe(x => ++x);
+a.ap(f1).ap(f2).map(console.log);
