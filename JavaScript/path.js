@@ -39,9 +39,10 @@ if (
   config &&
   config.server &&
   config.server.ssl &&
-  config.server.ssl.filename
+  config.server.ssl.key &&
+  config.server.ssl.key.filename
 ) {
-  let fileName = config.server.ssl.filename;
+  let fileName = config.server.ssl.key.filename;
   fs.readFile(fileName, (err, data) => {
     if (data) {
       console.log();
