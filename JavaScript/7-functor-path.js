@@ -21,7 +21,7 @@ api.fp.maybe = x => fn => api.fp.maybe(x && fn ? fn(x) : null);
 
 const fs = require('fs');
 
-let config = {
+const config = {
   server: {
     host: {
       ip: '10.0.0.1',
@@ -29,7 +29,7 @@ let config = {
     },
     ssl: {
       key: {
-        filename: './path.js'
+        filename: './7-functor-path.js'
       }
     }
   }
@@ -59,6 +59,3 @@ api.fp.path(config)('server.ssl.key.filename')(
     api.fp.maybe(data)(console.log);
   })
 );
-
-
-api.fp.path(config).set('server.ssl.key.filename')();
