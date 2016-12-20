@@ -11,7 +11,7 @@ api.fp.maybe = x => {
   map.ap = fnA => fnA(fn => api.fp.mapNull(fn, x));
   map.chain = fnM => fnM(x);
   return map;
-}
+};
 
 api.fp.maybe(5)(x => x * 2)(x => ++x)(console.log);
 api.fp.maybe(5)(x => x * 2).ap(api.fp.maybe(x => ++x))(console.log);

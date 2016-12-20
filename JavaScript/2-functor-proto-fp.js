@@ -5,7 +5,7 @@ function Maybe(x) {
 }
 
 Maybe.prototype.map = function(fn) {
-  return (this.x && fn) ? new Maybe(fn(this.x)) : new Maybe(null);
+  return new Maybe(this.x && fn ? fn(this.x) : null);
 };
 
 new Maybe(5).map(x => x * 2).map(console.log);

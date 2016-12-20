@@ -1,3 +1,5 @@
+'use strict';
+
 function maybe(x) {
   return function(fn) {
     if (x && fn) {
