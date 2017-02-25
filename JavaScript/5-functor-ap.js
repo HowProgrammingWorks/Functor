@@ -2,10 +2,11 @@
 
 function Maybe(x) {
   this.x = x;
+  this.isActive = (x || x === 0);
 }
 
 Maybe.prototype.map = function(fn) {
-  return (this.x && fn) ? fn(this.x) : null;
+  return (this.isActive && fn) ? fn(this.x) : null;
 };
 
 Maybe.prototype.ap = function(maybe) {
