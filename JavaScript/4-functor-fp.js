@@ -1,12 +1,9 @@
 'use strict';
 
-global.api = {};
-api.fp = {};
+const maybe = x => fn => maybe(x && fn ? fn(x) : null);
 
-api.fp.maybe = x => fn => api.fp.maybe(x && fn ? fn(x) : null);
+maybe(5)(x => ++x)(console.log);
+maybe(5)(x => x * 2)(x => ++x)(console.log);
 
-api.fp.maybe(5)(x => ++x)(console.log);
-api.fp.maybe(5)(x => x * 2)(x => ++x)(console.log);
-
-api.fp.maybe(5)(null)(console.log);
-api.fp.maybe(null)(x => x * 2)(console.log);
+maybe(5)(null)(console.log);
+maybe(null)(x => x * 2)(console.log);
