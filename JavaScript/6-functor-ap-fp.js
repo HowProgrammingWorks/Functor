@@ -1,21 +1,19 @@
 'use strict';
 
-global.api = {};
+const fp = {};
 
-api.fp = {};
+fp.mapNull = (fn, x) => (x ? fn(x) : null);
 
-api.fp.mapNull = (fn, x) => x ? fn(x) : null;
-
-api.fp.maybe = x => {
-  const map = fn => api.fp.maybe(api.fp.mapNull(fn, x));
-  map.ap = fnA => fnA(fn => api.fp.mapNull(fn, x));
+fp.maybe = x => {
+  const map = fn => fp.maybe(fp.mapNull(fn, x));
+  map.ap = fnA => fnA(fn => fp.mapNull(fn, x));
   map.chain = fnM => fnM(x);
   return map;
 };
 
-api.fp.maybe(5)(x => x * 2)(x => ++x)(console.log);
-api.fp.maybe(5)(x => x * 2).ap(api.fp.maybe(x => ++x))(console.log);
-api.fp.maybe(5).chain(x => api.fp.maybe(x * 2))(x => ++x)(console.log);
+fp.maybe(5)(x => x * 2)(x => ++x)(console.log);
+fp.maybe(5)(x => x * 2).ap(fp.maybe(x => ++x))(console.log);
+fp.maybe(5).chain(x => fp.maybe(x * 2))(x => ++x)(console.log);
 
 const config = {
   coords: {
@@ -34,6 +32,6 @@ const addVelocity = velocity => coords => {
   return coords;
 };
 
-const coords = api.fp.maybe(config.coords);
-const velocity = api.fp.maybe(config.velocity);
+const coords = fp.maybe(config.coords);
+const velocity = fp.maybe(config.velocity);
 coords.ap(velocity(addVelocity))(console.log);

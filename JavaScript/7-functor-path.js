@@ -1,12 +1,10 @@
 'use strict';
 
-global.api = {};
+const fp = {};
 
-api.fp = {};
-
-api.fp.path = data => (
+fp.path = data => (
   path => (
-    api.fp.maybe(path)(path => (
+    fp.maybe(path)(path => (
       path.split('.').reduce(
         (prev, key) => (prev[key] || {}),
         (data || {})
@@ -15,7 +13,7 @@ api.fp.path = data => (
   )
 );
 
-api.fp.maybe = x => fn => api.fp.maybe(x && fn ? fn(x) : null);
+fp.maybe = x => fn => fp.maybe(x && fn ? fn(x) : null);
 
 // Usage example:
 
@@ -44,7 +42,7 @@ if (
   config.server.ssl.key &&
   config.server.ssl.key.filename
 ) {
-  let fileName = config.server.ssl.key.filename;
+  const fileName = config.server.ssl.key.filename;
   fs.readFile(fileName, (err, data) => {
     if (data) {
       console.log();
@@ -54,8 +52,8 @@ if (
 
 // Functional style:
 
-api.fp.path(config)('server.ssl.key.filename')(
+fp.path(config)('server.ssl.key.filename')(
   file => fs.readFile(file, (err, data) => {
-    api.fp.maybe(data)(console.log);
+    fp.maybe(data)(console.log);
   })
 );
