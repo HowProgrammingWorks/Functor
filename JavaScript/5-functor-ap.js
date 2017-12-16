@@ -14,6 +14,8 @@ Maybe.prototype.ap = function(maybe) {
   ))));
 };
 
+// Usage
+
 const a = new Maybe(5);
 const f1 = new Maybe(x => x * 2);
 const f2 = new Maybe(x => ++x);

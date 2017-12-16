@@ -15,7 +15,7 @@ fp.path = data => (
 
 fp.maybe = x => fn => fp.maybe(x && fn ? fn(x) : null);
 
-// Usage example:
+// Usage
 
 const fs = require('fs');
 
@@ -33,7 +33,7 @@ const config = {
   }
 };
 
-// Imperative style:
+// Imperative style
 
 if (
   config &&
@@ -50,7 +50,7 @@ if (
   });
 }
 
-// Functional style:
+// Functional style
 
 fp.path(config)('server.ssl.key.filename')(
   file => fs.readFile(file, (err, data) => {

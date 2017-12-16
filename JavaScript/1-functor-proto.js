@@ -12,5 +12,8 @@ Maybe.prototype.map = function(fn) {
   }
 };
 
+// Usage
+
+new Maybe(5).map().map(console.log);
 new Maybe(5).map(x => x * 2).map(console.log);
 new Maybe(null).map(x => x * 2).map(console.log);

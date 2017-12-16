@@ -11,6 +11,8 @@ fp.maybe = x => {
   return map;
 };
 
+// Usage
+
 fp.maybe(5)(x => x * 2)(x => ++x)(console.log);
 fp.maybe(5)(x => x * 2).ap(fp.maybe(x => ++x))(console.log);
 fp.maybe(5).chain(x => fp.maybe(x * 2))(x => ++x)(console.log);
