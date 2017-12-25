@@ -41,11 +41,27 @@ Collector.prototype.done = function(callback) {
 
 // Usage
 
-const dc = collect(3).done((err, data) => {
+const dc = collect(4).done((err, data) => {
   console.log('Done callback ');
   console.dir({ err, data });
 });
 
 dc('key1', 'value1');
-dc('key2', 'value2');
-dc('key3', 'value3');
+
+setTimeout(() => {
+  dc('key2', 'value2');
+}, 100);
+
+setImmediate(() => {
+  dc('key3', 'value3');
+});
+
+dc('key4', 'value4');
+dc('key5', 'value5');
+
+// {
+//   key1: 'value1',
+//   key4: 'value4',
+//   key5: 'value5',
+//   key3: 'value3'
+// }
