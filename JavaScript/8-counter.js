@@ -5,25 +5,19 @@ function Counter() {}
 const counter = initial => {
   const f = val => {
     f.count += val;
-    Object.keys(f.events)
-      .map(key => parseInt(key))
-      .filter(n => n <= f.count)
-      .forEach(n => {
-        f.events[n].forEach(callback => callback(f.count));
-        delete f.events[n];
-      });
+    Object.keys(f.events).filter(n => n <= f.count).forEach(n => {
+      f.events[n].forEach(callback => callback(f.count));
+      delete f.events[n];
+    });
     return f;
   };
-  const fields = { count: 0, events: {} };
   Object.setPrototypeOf(f, Counter.prototype);
-  Object.assign(f, fields);
-  return f(initial);
+  return Object.assign(f, { count: 0, events: {} })(initial);
 };
 
 Counter.prototype.on = function(n, callback) {
   const event = this.events[n];
-  if (event) event.push(callback);
-  else this.events[n] = [callback];
+  if (event) event.push(callback); else this.events[n] = [callback];
   return this(0);
 };
 
