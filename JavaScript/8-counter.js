@@ -17,14 +17,14 @@ const counter = initial => {
 
 Counter.prototype.on = function(n, callback) {
   const event = this.events[n];
-  if (event) event.push(callback); else this.events[n] = [callback];
+  if (event) event.push(callback);
+  else this.events[n] = [callback];
   return this(0);
 };
 
 // Usage
 
 const c = counter(10);
-c.on(5, val => console.log('Counter > 5, value:', val));
 c.on(5, val => console.log('Counter > 5, value:', val));
 c.on(25, val => console.log('Counter > 25, value:', val));
 c(5);
