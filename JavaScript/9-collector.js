@@ -1,11 +1,6 @@
 'use strict';
 
-const util = require('util');
-
-function Collector() {
-}
-
-util.inherits(Collector, Function);
+function Collector() {}
 
 const collect = (expected) => {
   const collector = (key, value) => {
