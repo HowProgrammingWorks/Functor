@@ -27,7 +27,7 @@ const config = {
     },
     ssl: {
       key: {
-        filename: './7-functor-path.js'
+        filename: './7-path.js'
       }
     }
   }
@@ -43,17 +43,15 @@ if (
   config.server.ssl.key.filename
 ) {
   const fileName = config.server.ssl.key.filename;
-  fs.readFile(fileName, (err, data) => {
-    if (data) {
-      console.log();
-    }
+  fs.readFile(fileName, 'utf8', (err, data) => {
+    if (data) console.log();
   });
 }
 
 // Functional style
 
 fp.path(config)('server.ssl.key.filename')(
-  file => fs.readFile(file, (err, data) => {
+  file => fs.readFile(file, 'utf8', (err, data) => {
     fp.maybe(data)(console.log);
   })
 );
