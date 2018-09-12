@@ -2,7 +2,7 @@
 
 function Collector() {}
 
-const collect = (expected) => {
+const collect = expected => {
   const collector = (key, value) => {
     if (collector.finished) return collector;
     collector.count++;
