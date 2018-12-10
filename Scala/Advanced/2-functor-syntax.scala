@@ -25,6 +25,6 @@ object Main2 extends App {
    * that could be fixed by making Functor typeclass Invariant like it is fixed in Cats
    * but it is a little bit complicated for our simple example
    */
-  print(some("2").fmap(_.toDouble).fmap(a => a + 3))
+  println(some("2").fmap(_.toDouble).fmap(a => a + 3))
   //prints Some(5.0)
 }
