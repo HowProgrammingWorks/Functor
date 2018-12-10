@@ -1,39 +1,20 @@
 'use strict';
 
-const fp = {};
-
-fp.mapNull = (fn, x) => (x ? fn(x) : null);
-
-fp.maybe = x => {
-  const map = fn => fp.maybe(fp.mapNull(fn, x));
-  map.ap = fnA => fnA(fn => fp.mapNull(fn, x));
-  map.chain = fnM => fnM(x);
-  return map;
+const maybe = x => {
+  const map = fn => maybe(x ? fn(x) : null);
+  const ap = functor => functor.map(f => x && f ? f(x) : null);
+  const chain = f => f(x);
+  return Object.assign(map, { map, ap, chain });
 };
 
 // Usage
 
-fp.maybe(5)(x => x * 2)(x => ++x)(console.log);
-fp.maybe(5)(x => x * 2).ap(fp.maybe(x => ++x))(console.log);
-fp.maybe(5).chain(x => fp.maybe(x * 2))(x => ++x)(console.log);
+const twice = x => x * 2;
+const inc = x => ++x;
 
-const config = {
-  coords: {
-    x: 0,
-    y: 5,
-  },
-  velocity: {
-    x: 1,
-    y: 1,
-  },
-};
-
-const addVelocity = velocity => coords => {
-  coords.x += velocity.x;
-  coords.y += velocity.y;
-  return coords;
-};
-
-const coords = fp.maybe(config.coords);
-const velocity = fp.maybe(config.velocity);
-coords.ap(velocity(addVelocity))(console.log);
+maybe(5)(twice)(inc)(console.log);
+maybe(5).map(twice).map(inc).map(console.log);
+maybe(5)(twice).ap(maybe(inc))(console.log);
+maybe(5)(twice).ap(maybe())(console.log);
+maybe(5).chain(x => maybe(x * 2))(inc)(console.log);
+maybe(5).chain(x => maybe(x * 2)).map(inc)(console.log);
