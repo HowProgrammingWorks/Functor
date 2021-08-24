@@ -2,11 +2,13 @@
 
 function Counter() {}
 
-const counter = initial => {
-  const f = val => {
+// TODO: check this code
+
+const counter = (initial) => {
+  const f = (val) => {
     f.count += val;
-    Object.keys(f.events).filter(n => n <= f.count).forEach(n => {
-      f.events[n].forEach(callback => callback(f.count));
+    Object.keys(f.events).filter((n) => n <= f.count).forEach((n) => {
+      f.events[n].forEach((callback) => callback(f.count));
       delete f.events[n];
     });
     return f;
@@ -25,7 +27,7 @@ Counter.prototype.on = function(n, callback) {
 // Usage
 
 const c = counter(10);
-c.on(5, val => console.log('Counter > 5, value:', val));
-c.on(25, val => console.log('Counter > 25, value:', val));
+c.on(5, (val) => console.log('Counter > 5, value:', val));
+c.on(25, (val) => console.log('Counter > 25, value:', val));
 c(5);
 setTimeout(() => c(15), 100);

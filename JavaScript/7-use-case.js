@@ -1,8 +1,8 @@
 'use strict';
 
-const maybe = x => {
-  const map = fn => maybe(x ? fn(x) : null);
-  map.ap = functor => functor(f => x && f ? f(x) : null);
+const maybe = (x) => {
+  const map = (fn) => maybe(x ? fn(x) : null);
+  map.ap = (functor) => functor((f) => (x && f ? f(x) : null));
   return map;
 };
 
@@ -19,7 +19,7 @@ const config = {
   },
 };
 
-const addVelocity = velocity => coords => {
+const addVelocity = (velocity) => (coords) => {
   coords.x += velocity.x;
   coords.y += velocity.y;
   return coords;

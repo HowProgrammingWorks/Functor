@@ -10,14 +10,14 @@ Maybe.prototype.map = function(fn) {
 };
 
 Maybe.prototype.ap = function(functor) {
-  return this.map(val => functor.map(f => f(val)));
+  return this.map((val) => functor.map((f) => f(val)));
 };
 
 // Usage
 
 const a = new Maybe(5);
-const f1 = new Maybe(x => x * 2);
-const f2 = new Maybe(x => ++x);
+const f1 = new Maybe((x) => x * 2);
+const f2 = new Maybe((x) => ++x);
 
 a.ap(f1).ap(f2).map(console.log);
 

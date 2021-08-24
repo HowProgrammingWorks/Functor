@@ -2,9 +2,9 @@
 
 const fp = {};
 
-fp.path = data => (
-  path => (
-    fp.maybe(path)(path => (
+fp.path = (data) => (
+  (path) => (
+    fp.maybe(path)((path) => (
       path.split('.').reduce(
         (prev, key) => (prev[key] || {}),
         (data || {})
@@ -13,7 +13,7 @@ fp.path = data => (
   )
 );
 
-fp.maybe = x => fn => fp.maybe(x && fn ? fn(x) : null);
+fp.maybe = (x) => (fn) => fp.maybe(x && fn ? fn(x) : null);
 
 // Usage
 
@@ -51,7 +51,7 @@ if (
 // Functional style
 
 fp.path(config)('server.ssl.key.filename')(
-  file => fs.readFile(file, 'utf8', (err, data) => {
+  (file) => fs.readFile(file, 'utf8', (err, data) => {
     fp.maybe(data)(console.log);
   })
 );
