@@ -12,6 +12,7 @@ const collect = (expected) => {
       return collector;
     }
     if (collector.expected === collector.count) {
+      collector.finished = true;
       collector.callback(null, collector.data);
     }
     return collector;
