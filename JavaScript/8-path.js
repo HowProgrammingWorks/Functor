@@ -17,7 +17,7 @@ fp.maybe = (x) => (fn) => fp.maybe(x && fn ? fn(x) : null);
 
 // Usage
 
-const fs = require('fs');
+const fs = require('node:fs');
 
 const config = {
   server: {
