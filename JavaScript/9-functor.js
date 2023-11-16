@@ -21,7 +21,7 @@ Counter.prototype.on = function(n, callback) {
   const event = this.events[n];
   if (event) event.push(callback);
   else this.events[n] = [callback];
-  return this(0);
+  return this;
 };
 
 // Usage
