@@ -7,10 +7,11 @@ function Counter() {}
 const counter = (initial) => {
   const f = (val) => {
     f.count += val;
-    Object.keys(f.events).filter((n) => n <= f.count).forEach((n) => {
+    const due = Object.keys(f.events).filter((n) => n <= f.count);
+    for (const n of due) {
       f.events[n].forEach((callback) => callback(f.count));
       delete f.events[n];
-    });
+    }
     return f;
   };
   Object.setPrototypeOf(f, Counter.prototype);
