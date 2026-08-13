@@ -35,14 +35,8 @@ const config = {
 
 // Imperative style
 
-if (
-  config &&
-  config.server &&
-  config.server.ssl &&
-  config.server.ssl.key &&
-  config.server.ssl.key.filename
-) {
-  const fileName = config.server.ssl.key.filename;
+const fileName = config?.server?.ssl?.key?.filename;
+if (fileName) {
   fs.readFile(fileName, 'utf8', (err, data) => {
     if (data) console.log();
   });
