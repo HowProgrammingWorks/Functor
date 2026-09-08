@@ -13,7 +13,13 @@ fp.path = (data) => (
   )
 );
 
-fp.maybe = (x) => (fn) => fp.maybe(x && fn ? fn(x) : null);
+fp.isJust = (value) => {
+  if (!value || typeof value !== 'object') return Boolean(value);
+  if (Object.keys(value).length === 0) return false;
+  return true;
+};
+
+fp.maybe = (x) => (fn) => fp.maybe(fp.isJust(x) && fn ? fn(x) : null);
 
 // Usage
 
